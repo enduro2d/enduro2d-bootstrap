@@ -1,0 +1,11 @@
+version: "{build}"
+image:
+  - Visual Studio 2015
+  - Visual Studio 2017
+platform:
+  - Win32
+  - x64
+build_script:
+  - git submodule update --init --recursive
+  - scripts\build_all.bat
+test: off
