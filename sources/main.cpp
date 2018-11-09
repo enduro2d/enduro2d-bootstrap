@@ -7,27 +7,28 @@
 #include <enduro2d/enduro2d.hpp>
 using namespace e2d;
 
-int e2d_main() {
-    {
-        modules::initialize<vfs>()
-            .register_scheme<filesystem_file_source>("file");
-        modules::initialize<debug>()
-            .register_sink<debug_console_sink>();
-        modules::initialize<input>();
-        modules::initialize<window>(v2u{640, 480}, "Enduro2D", false)
-            .register_event_listener<window_input_source>(the<input>());
-        modules::initialize<render>(the<debug>(), the<window>());
-    }
-    {
-        const keyboard& k = the<input>().keyboard();
-        while ( !the<window>().should_close() && !k.is_key_just_released(keyboard_key::escape) ) {
+namespace
+{
+    class game final : public application {
+    public:
+        bool frame_tick() final {
+            const keyboard& k = the<input>().keyboard();
+            while ( the<window>().should_close() || k.is_key_just_released(keyboard_key::escape) ) {
+                return false;
+            }
             the<render>().execute(render::command_block<64>()
                 .add_command(render::clear_command()
                     .color_value({1.f, 0.4f, 0.f, 1.f}))
                 .add_command(render::swap_command(true)));
-            the<input>().frame_tick();
-            window::poll_events();
+            return true;
         }
-    }
+    };
+}
+
+int e2d_main(int argc, char *argv[]) {
+    auto params = engine::parameters("bootstrap", "enduro2d")
+        .timer_params(engine::timer_parameters()
+            .maximal_framerate(100));
+    modules::initialize<engine>(argc, argv, params).start<game>();
     return 0;
 }
