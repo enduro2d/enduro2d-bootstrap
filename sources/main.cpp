@@ -26,9 +26,10 @@ namespace
 }
 
 int e2d_main(int argc, char *argv[]) {
-    auto params = engine::parameters("bootstrap", "enduro2d")
-        .timer_params(engine::timer_parameters()
-            .maximal_framerate(100));
-    modules::initialize<engine>(argc, argv, params).start<game>();
+    const auto params = starter::parameters(
+        engine::parameters("bootstrap", "enduro2d")
+            .timer_params(engine::timer_parameters()
+                .maximal_framerate(100)));
+    modules::initialize<starter>(argc, argv, params).start<game>();
     return 0;
 }
