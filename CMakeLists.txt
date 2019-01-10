@@ -33,6 +33,7 @@ endif()
 #
 
 set(E2D_BUILD_SAMPLES OFF CACHE BOOL "" FORCE)
+set(E2D_BUILD_TOOLSET OFF CACHE BOOL "" FORCE)
 set(E2D_BUILD_UNTESTS OFF CACHE BOOL "" FORCE)
 add_subdirectory(modules/enduro2d)
 
