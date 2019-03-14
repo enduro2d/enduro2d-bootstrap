@@ -1,4 +1,4 @@
-# Build Instructions 
+# Build Instructions
 
 ## * Requirements
 
@@ -12,14 +12,8 @@
 ```bash
 $ git clone --recursive git://github.com/enduro2d/enduro2d-bootstrap.git
 $ cd enduro2d-bootstrap
-```
-
-> or
-
-```bash
-$ git clone git://github.com/enduro2d/enduro2d-bootstrap.git
-$ cd enduro2d-bootstrap
-$ git submodule update --init --recursive
+$ git lfs install
+$ git lfs pull
 ```
 
 ## * Building
@@ -55,4 +49,3 @@ $ ./enduro2d-bootstrap
 - CMake: https://cmake.org/
 - CMake documentation: https://cmake.org/documentation/
 - CMake FAQ: https://gitlab.kitware.com/cmake/community/wikis/FAQ
-
