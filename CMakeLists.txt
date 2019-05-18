@@ -49,13 +49,5 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 # project executable
 #
 
-add_executable(${PROJECT_NAME}
-    ${PROJECT_SOURCES})
-target_link_libraries(${PROJECT_NAME}
-    ${E2D_LIBRARIES})
-target_include_directories(${PROJECT_NAME}
-    PRIVATE ${E2D_INCLUDE_DIRS})
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    CXX_STANDARD 14
-    CXX_STANDARD_REQUIRED YES
-    CXX_EXTENSIONS NO)
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+target_link_libraries(${PROJECT_NAME} enduro2d)
