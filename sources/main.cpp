@@ -29,17 +29,17 @@ namespace
         }
     };
 
-    class game final : public high_application {
+    class game final : public starter::application {
     public:
-        bool initialize() final{
+        bool initialize() final {
             ecs::registry_filler(the<world>().registry())
                 .system<game_system>(world::priority_update);
 
-            ecs::entity camera_e = the<world>().registry().create_entity();
-            ecs::entity_filler(camera_e)
+            const gobject_iptr camera_i = the<world>().instantiate();
+            camera_i->entity_filler()
                 .component<camera>(camera()
                     .background({1.f, 0.4f, 0.f, 1.f}))
-                .component<actor>(node::create(camera_e));
+                .component<actor>(node::create(camera_i));
             return true;
         }
     };
