@@ -45,4 +45,5 @@ script:
   - git submodule update --init --recursive
   - git lfs install
   - git lfs pull
+  - git submodule foreach git lfs pull
   - ./scripts/build_all.sh

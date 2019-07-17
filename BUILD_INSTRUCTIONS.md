@@ -14,6 +14,7 @@ $ git clone --recursive git://github.com/enduro2d/enduro2d-bootstrap.git
 $ cd enduro2d-bootstrap
 $ git lfs install
 $ git lfs pull
+$ git submodule foreach git lfs pull
 ```
 
 ## * Building
