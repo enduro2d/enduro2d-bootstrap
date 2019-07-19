@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 project(enduro2d-bootstrap)
 
 #
@@ -50,15 +50,13 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 # executable
 #
 
-add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+e2d_add_executable(${PROJECT_NAME} PROJECT_SOURCES)
 target_link_libraries(${PROJECT_NAME} enduro2d)
 
 #
 # resources
 #
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_CURRENT_SOURCE_DIR}/bin
-    $<TARGET_FILE_DIR:${PROJECT_NAME}>/bin)
+e2d_copy_resource_dir(${PROJECT_NAME}
+    ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 add_e2d_shared_libraries_to_target(${PROJECT_NAME})

@@ -1,0 +1,14 @@
+*.idea
+*.iml
+.gradle
+/local.properties
+/build
+/captures
+/game/build
+/game/.externalNativeBuild
+/game/src/main/assets/bin
+/game/src/main/jniLibs/arm64-v8a
+/game/src/main/jniLibs/armeabi-v7a
+/game/src/main/jniLibs/x86
+/game/src/main/jniLibs/x86_64
+/game/release

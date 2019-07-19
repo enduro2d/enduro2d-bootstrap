@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        applicationId 'enduro2d.bootstrap'
+        minSdkVersion 24
+        targetSdkVersion 28
+        ndk {
+            // TODO: for fast building keep only one target
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+        externalNativeBuild {
+            cmake {
+                // E2D_ANDROID_ASSETS_PATH and E2D_ANDROID_JNILIBS_PATH are relative to cmake source dor
+                arguments '-DANDROID_STL=c++_static',
+                          '-DE2D_ANDROID_ASSETS_PATH=android/game/src/main/assets',
+                          '-DE2D_ANDROID_JNILIBS_PATH=android/game/src/main/jniLibs'
+            }
+        }
+    }
+    signingConfigs {
+        // TODO: replace with you keystore
+        release {
+            storeFile file('../../modules/enduro2d/sources/android/keystore/testbuild.jks')
+            storePassword 'enduro2d'
+            keyAlias = 'testbuild'
+            keyPassword 'enduro2d'
+        }
+    }
+    buildTypes {
+        release {
+            //debuggable true // to enable logcat
+            minifyEnabled = false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                          'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            version '3.10.2'
+            path '../../CMakeLists.txt'
+        }
+    }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', '../../modules/enduro2d/sources/android/engine']
+        }
+    }
+}
