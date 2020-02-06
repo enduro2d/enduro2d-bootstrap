@@ -1,10 +1,10 @@
 @echo off
 set BUILD_DIR=%~dp0%\..\build
-mkdir %BUILD_DIR%\debug || goto :error
-cd %BUILD_DIR%\debug || goto :error
-cmake ../.. || goto :error
+mkdir %BUILD_DIR%\Debug\x64 || goto :error
+pushd %BUILD_DIR%\Debug\x64 || goto :error
+cmake ..\..\.. -A x64 || goto :error
 cmake --build . --config Debug || goto :error
-cd ..\.. || goto :error
+popd || goto :error
 
 goto :EOF
 

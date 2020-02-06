@@ -1,8 +1,8 @@
 @echo off
 set BUILD_DIR=%~dp0%\..\build
-mkdir %BUILD_DIR%\msvc2017 || goto :error
-pushd %BUILD_DIR%\msvc2017 || goto :error
-cmake -G "Visual Studio 15 2017" ..\.. || goto :error
+mkdir %BUILD_DIR%\msvc2019 || goto :error
+pushd %BUILD_DIR%\msvc2019 || goto :error
+cmake -G "Visual Studio 16 2019" ..\.. || goto :error
 start enduro2d-bootstrap.sln || goto :error
 popd || goto :error
 
