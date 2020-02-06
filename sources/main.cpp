@@ -9,10 +9,13 @@ using namespace e2d;
 
 namespace
 {
-    class game_system final : public ecs::system {
+    class game_system final : public systems::update_system {
     public:
-        void process(ecs::registry& owner) override {
-            E2D_UNUSED(owner);
+        void process(
+            ecs::registry& owner,
+            const systems::update_event& event) override
+        {
+            E2D_UNUSED(owner, event);
             const keyboard& k = the<input>().keyboard();
 
             if ( k.is_key_just_released(keyboard_key::f12) ) {
@@ -32,14 +35,36 @@ namespace
     class game final : public starter::application {
     public:
         bool initialize() final {
-            ecs::registry_filler(the<world>().registry())
-                .system<game_system>(world::priority_update);
+            {
+                ecs::registry_filler(the<world>().registry())
+                .feature<struct game_feature>(ecs::feature()
+                    .add_system<game_system>());
+            }
 
-            const gobject_iptr camera_i = the<world>().instantiate();
-            camera_i->entity_filler()
-                .component<camera>(camera()
-                    .background({1.f, 0.4f, 0.f, 1.f}))
-                .component<actor>(node::create(camera_i));
+            {
+                prefab scene_prefab;
+                scene_prefab.prototype()
+                    .component<named>(named()
+                        .name("scene"))
+                    .component<scene>();
+
+                prefab camera_prefab;
+                camera_prefab.prototype()
+                    .component<named>(named()
+                        .name("camera"))
+                    .component<camera>(camera()
+                        .background({1.f, 0.4f, 0.f, 1.f}))
+                    .component<camera::gizmos>();
+
+                gobject scene_go = the<world>().instantiate(scene_prefab);
+                gobject camera_go = the<world>().instantiate(camera_prefab);
+
+                node_iptr scene_node = scene_go.component<actor>()->node();
+                node_iptr camera_node = camera_go.component<actor>()->node();
+
+                scene_node->add_child(camera_node);
+            }
+
             return true;
         }
     };
