@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.21 FATAL_ERROR)
 project(enduro2d-bootstrap)
 
 #
@@ -61,4 +61,3 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/bin
     $<TARGET_FILE_DIR:${PROJECT_NAME}>/bin)
-add_e2d_shared_libraries_to_target(${PROJECT_NAME})
